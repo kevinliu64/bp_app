@@ -1,0 +1,46 @@
+<%= react_component("Comments", {}, {prerender: true}) %>
+<% if false %>
+<p>
+  <h1>Title: <%= @topic.title %></h1>
+</p>
+
+<p>
+  <h4>Text: <%= @topic.description %></h4>
+</p>
+
+<table>
+  <tr>
+    <th>Poster</th>
+    <th>Post Name</th>
+  </tr>
+
+  <% @topic.posts.each do |post| %>
+    <tr>
+      <td><%= post.poster %></td>
+      <td><%= post.body %></td>
+
+      <td><%= link_to 'Destory post', [post.topic, post],
+              method: :delete, 
+              data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= form_with(model: [ @topic, @topic.posts.build ]) do |form| %>
+  <p>
+    <%= form.label :poster %><br>
+    <%= form.text_field :poster %>
+  </p>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_field :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<%= link_to 'Edit', edit_topic_path(@topic) %> |
+<%= link_to 'Back', topics_path %>
+<% end %>
+
+
